@@ -1,23 +1,20 @@
 <template>
-  <div
-    class="mx-auto mt-4 max-w-7xl space-y-4 px-4 xs:px-8 sm:px-10 lg:px-16 pb-16 w-3/5"
-  >
-    <div class="mt-32 flex">
-      <CitySideBar></CitySideBar>
-      <NuxtPage></NuxtPage>
-    </div>
+  <div class="mt-32 flex">
+    <CitySideBar></CitySideBar>
+    <NuxtPage></NuxtPage>
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute();
+const { toTitleCase } = useUtilities();
+
+definePageMeta({ layout: 'custom' });
 
 useHead({
   title: `${
-    route.params.make
-      ? [...route.params.make].join('').toUpperCase()
-      : 'NuxtBarter'
-  } | ${[...route.params.city].join('').toUpperCase()}`,
+    route.params.make ? toTitleCase(route.params.make) : 'NuxtBarter'
+  } | ${toTitleCase(route.params.city)}`,
 });
 </script>
 
