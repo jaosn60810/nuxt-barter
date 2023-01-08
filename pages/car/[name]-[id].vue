@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <DetailHero></DetailHero>
+  <div v-if="city">
+    <DetailHero :city="city"></DetailHero>
 
-    <DetailAttributes></DetailAttributes>
+    <DetailAttributes :features="city.features"></DetailAttributes>
 
-    <DetailDescription></DetailDescription>
+    <DetailDescription :description="city.description"></DetailDescription>
 
     <DetailContact></DetailContact>
   </div>
@@ -13,6 +13,11 @@
 <script setup lang="ts">
 const route = useRoute();
 const { toTitleCase } = useUtilities();
+
+const { cities } = useCities();
+const city = computed(() =>
+  cities.find((city) => city.id === parseInt(route.params.id as string))
+);
 
 definePageMeta({ layout: 'custom' });
 
